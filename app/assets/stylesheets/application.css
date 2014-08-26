@@ -14,54 +14,96 @@
  *= require_self
  */
 
-.col {
-    width:200px;
-    margin:auto;
-    text-align: center;
+#list-header {
+display:none
 }
 
-.btn {
-    width:205px;
-}
-
-.center {
-    text-align:center
-}
-
-.remove-button {
-    display:inline-block;
-    float:right;
-    margin-right: 3px;
-}
-
-.flash-text {
-    display:inline-block;
-    width: 120px;
-    color:white
-}
-
-#todo-list {
-    width:200px;
-    margin:auto;
-    text-align:left;
-}
-
-.flash {
-    background-color: green;
+#complete-header {
     display:none
-
 }
 
-#header {
- display:none
+#flash {
+    display:none;
 }
 
-.item {
-    display:inline-block;
-    width: 120px;
-    color:black
+#flash-complete {
+    display:none;
 }
 
 .red {
-    color:red
+    background-color: red;
 }
+
+.green {
+    background-color: lightgreen;
+}
+
+.block {
+    display: inline-block;
+}
+
+.block-right {
+    display: inline-block;
+    float:right;
+    padding-right: 10px;
+}
+
+/*.col {*/
+    /*width:200px;*/
+    /*margin:auto;*/
+    /*text-align: center;*/
+/*}*/
+
+/*.btn {*/
+    /*width:205px;*/
+/*}*/
+
+/*.center {*/
+    /*text-align:center*/
+/*}*/
+
+/*.button {*/
+    /*display:inline-block;*/
+    /*float:right;*/
+    /*margin-right: 3px;*/
+/*}*/
+
+
+/*.flash-text {*/
+    /*display:inline-block;*/
+    /*width: 120px;*/
+    /*color:white*/
+/*}*/
+
+/*#todo-list {*/
+    /*width:200px;*/
+    /*margin:auto;*/
+    /*text-align:left;*/
+/*}*/
+
+/*.flash {*/
+    /*background-color: green;*/
+    /*display:none*/
+/*}*/
+
+
+/*.flash-kill {*/
+    /*background-color: red;*/
+    /*display:none*/
+/*}*/
+
+
+
+/*.item {*/
+    /*display:inline-block;*/
+    /*width: 120px;*/
+    /*color:black*/
+/*}*/
+
+/*.red {*/
+    /*color:red*/
+/*}*/
+
+/*.green {*/
+    /*color:green;*/
+/*}*/
