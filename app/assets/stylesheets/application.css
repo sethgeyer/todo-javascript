@@ -13,3 +13,55 @@
  *= require_tree .
  *= require_self
  */
+
+.col {
+    width:200px;
+    margin:auto;
+    text-align: center;
+}
+
+.btn {
+    width:205px;
+}
+
+.center {
+    text-align:center
+}
+
+.remove-button {
+    display:inline-block;
+    float:right;
+    margin-right: 3px;
+}
+
+.flash-text {
+    display:inline-block;
+    width: 120px;
+    color:white
+}
+
+#todo-list {
+    width:200px;
+    margin:auto;
+    text-align:left;
+}
+
+.flash {
+    background-color: green;
+    display:none
+
+}
+
+#header {
+ display:none
+}
+
+.item {
+    display:inline-block;
+    width: 120px;
+    color:black
+}
+
+.red {
+    color:red
+}
