@@ -16,6 +16,39 @@
 
 $(document).ready(function() {
 
+//GET ToDos___________________________________
+//1. Establish a variable equal to the javascript request to 'get' all of the todos
+  var todosGETPromise = $.getJSON('/todos');
+
+//4.  The map method in #3 iterates through each item in returned_todos_response and runs the parseResponse function.  The
+//parseResponse function takes the individual item and converts it into html that can be rendered.
+  var parseResponse = function(eachToDo) {
+    var tdItemContainer = "<div class='to-do-item'>" + "<div class='block'>" + eachToDo.name + "</div>" + "<div class='block-right' id='button-item-x'>x</div>" + "<div class='block-right' id='button-item-complete'>o</div>" + "</div>";
+//    $('#to-do-bucket').append(tdItemContainer);
+    return tdItemContainer;
+  };
+
+
+
+
+
+//3.This variable is called in step 2.  It is a function that a. takes the JSON response data from #2 (called 'todosGetPromise')
+//, and b. sets it as the function's argument (its being renamed here to "returned_todos_response".  The function here takes the
+// returned_todos_response (which is a JSON string) and does the map function.  The jscript map function is the same as the Ruby
+// map call.  The 'block of code' (aka: function) that is called when map is called is named 'parseResponses'.  The information
+//that is returned in the map call is saved as a "parsed_todo_items" which is then converted to html within the HTML Element associated
+//with the js-output class.
+  var doSomething = function(returned_todos_response) {
+    var parsed_todo_items = returned_todos_response.map(parseResponse);
+    $('#to-do-bucket').html(parsed_todo_items);
+  };
+
+//2. Call the function associated w/ todosGETPromise (in 1).  Wait until the program successfully
+//returns data (which is a JSON string, and then do the function that is included as the variable in the argument (ie:.doSomething
+  todosGETPromise.success(doSomething);
+///////////////////////////////////////
+
+
 //Create Header Tag
   var $body = $('body');
   $body.prepend("<h1>Todoly</h1>");
@@ -25,8 +58,6 @@ $(document).ready(function() {
   var listSection = "<h3>Todo!</h3>";
   var toDoListSection = "<div id='list-header'>" + sectionBreak + listSection + "</div>";
   $body.append(toDoListSection);
-
-
 
 
 //Append a Flash Message and Append it(hidden)
@@ -59,8 +90,24 @@ $(document).ready(function() {
 
 //  Add an to-do item upon submission
     var itemText = $('#todo-item').val()
-    var todoItemContainer = "<div class='to-do-item'>" + "<div class='block'>" + itemText + "</div>" + "<div class='block-right' id='button-item-x'>x</div>" + "<div class='block-right' id='button-item-complete'>o</div>" + "</div>";
-    $('#to-do-bucket').append(todoItemContainer);
+
+
+    //POST the To Do ___________________________________
+    var postToDoPromise = $.post("/todos", {name: itemText});
+
+    postToDoPromise.success( function(todo) {
+      var todoItemContainer = "<div class='to-do-item'>" + "<div class='block'>" + todo.name + "</div>" + "<div class='block-right' id='button-item-x'>x</div>" + "<div class='block-right' id='button-item-complete'>o</div>" + "</div>";
+      $('#to-do-bucket').append(todoItemContainer);
+    });
+
+    ///////////////////////////
+
+
+
+
+
+
+
 
 //  Flash that the to-do was created upon submission
     var $flash = $('#flash')
