@@ -23,7 +23,7 @@ $(document).ready(function() {
 //4.  The map method in #3 iterates through each item in returned_todos_response and runs the parseResponse function.  The
 //parseResponse function takes the individual item and converts it into html that can be rendered.
   var parseResponse = function(eachToDo) {
-    var tdItemContainer = "<div class='to-do-item'>" + "<div class='block'>" + eachToDo.name + "</div>" + "<div class='block-right' id='button-item-x'>x</div>" + "<div class='block-right' id='button-item-complete'>o</div>" + "</div>";
+    var tdItemContainer = "<div class='to-do-item'>" + "<div class='block' data-id=" + eachToDo.id + ">" + eachToDo.name + "</div>" + "<div class='block-right' id='button-item-x'>x</div>" + "<div class='block-right' id='button-item-complete'>o</div>" + "</div>";
 //    $('#to-do-bucket').append(tdItemContainer);
     return tdItemContainer;
   };
@@ -92,17 +92,11 @@ $(document).ready(function() {
     var postToDoPromise = $.post("/todos", {name: itemText});
 
     postToDoPromise.success( function(todo) {
-      var todoItemContainer = "<div class='to-do-item'>" + "<div class='block'>" + todo.name + "</div>" + "<div class='block-right' id='button-item-x'>x</div>" + "<div class='block-right' id='button-item-complete'>o</div>" + "</div>";
+      var todoItemContainer = "<div class='to-do-item'>" + "<div class='block' data-id=" + todo.id + ">" + todo.name + "</div>" + "<div class='block-right' id='button-item-x'>x</div>" + "<div class='block-right' id='button-item-complete'>o</div>" + "</div>";
       $('#to-do-bucket').append(todoItemContainer);
     });
 
     ///////////////////////////
-
-
-
-
-
-
 
 
 //  Flash that the to-do was created upon submission
@@ -123,17 +117,32 @@ $(document).ready(function() {
   });
 // On click, you can delete a to-do-item and flash a red flash
   $('ul').on('click', '#button-item-x', function () {
-    $(this).parents('.to-do-item').remove()
-    $flash.removeClass('green')
-    $('#message').text("ToDoDeleted")
-    $flash.addClass('red')
-    $flash.toggle()
-    $flash.fadeOut(1000)
+    var $flash = $('#flash')
+    var deleted_item = $(this)
 
-    if ($('#completed-bucket').find('.to-do-item').size() == 0) {
-      $('#complete-header').hide();
-    }
+    var deleteToDoPromise = $.ajax({url: "/todos/"  + deleted_item.siblings(".block").attr('data-id'), type:"DELETE"})
+
+
+    deleteToDoPromise.success( function(deletedTodo) {
+      console.log(deleted_item)
+      deleted_item.parents('.to-do-item').remove();
+      $flash.removeClass('green');
+      $('#message').text("ToDoDeleted");
+      $flash.addClass('red');
+      $flash.toggle();
+      $flash.fadeOut(1000);
+
+      if ($('#completed-bucket').find('.to-do-item').size() == 0) {
+        $('#complete-header').hide();
+      }
+
+    });
+
+
   })
+
+
+
 
 // On click, you can complete a to-do-item, move it to a complete section and
 
@@ -148,8 +157,19 @@ $(document).ready(function() {
       $flashComplete.toggle();
     $flashComplete.fadeOut(1000);
 
-      $('#completed-bucket').append($(this).parents('.to-do-item'))
-      $(this).hide()
+      var putToDoPromise = $.ajax({url: "/todos/" + $(this).siblings(".block").attr('data-id'), type:"PUT"})
+
+      var $this = $(this)
+
+
+      putToDoPromise.success( function() {
+
+        $('#completed-bucket').append($this.parents('.to-do-item'))
+        $(this).hide()
+
+      });
+
+
 
 
 

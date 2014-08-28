@@ -10,6 +10,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'pg'
 
 group :development, :test do
+  gem "pry-rails"
+  gem "pry-byebug"
   gem "rspec-rails"
   gem "capybara"
   gem "database_cleaner"
