@@ -28,24 +28,20 @@ $(document).ready(function() {
     return tdItemContainer;
   };
 
-
-
-
-
-//3.This variable is called in step 2.  It is a function that a. takes the JSON response data from #2 (called 'todosGetPromise')
+//3.This variable (that is a function) is called in step 2.  It is a function that a. takes the JSON response data from #2 (called 'todosGetPromise')
 //, and b. sets it as the function's argument (its being renamed here to "returned_todos_response".  The function here takes the
-// returned_todos_response (which is a JSON string) and does the map function.  The jscript map function is the same as the Ruby
-// map call.  The 'block of code' (aka: function) that is called when map is called is named 'parseResponses'.  The information
-//that is returned in the map call is saved as a "parsed_todo_items" which is then converted to html within the HTML Element associated
-//with the js-output class.
-  var doSomething = function(returned_todos_response) {
+// returned_todos_response and does the map function.  The jscript map function is effectively the same as the Ruby
+// map call.  The 'block of code' (aka: function) that is called when map is called is named 'parseResponses' (see #4).  The information
+//that is returned in the map call is saved as "parsed_todo_items" which is then converted to html within the HTML Element associated
+//with the to-do-bucket id.
+  var addToTheView = function(returned_todos_response) {
     var parsed_todo_items = returned_todos_response.map(parseResponse);
     $('#to-do-bucket').html(parsed_todo_items);
   };
 
 //2. Call the function associated w/ todosGETPromise (in 1).  Wait until the program successfully
-//returns data (which is a JSON string, and then do the function that is included as the variable in the argument (ie:.doSomething
-  todosGETPromise.success(doSomething);
+//returns data (which is a JSON response), and then do the function that is included as the variable in the argument (ie:.addToTheView)
+  todosGETPromise.success(addToTheView);
 ///////////////////////////////////////
 
 
