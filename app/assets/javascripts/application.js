@@ -113,11 +113,14 @@ $(document).ready(function() {
     $flash.toggle()
     $flash.fadeOut(1000)
 
+
+
 // On click, you can hide the flash message
     $flash.on('click', '.button-x', function() {
      $(this).parents('#flash').hide()
    })
 
+  });
 // On click, you can delete a to-do-item and flash a red flash
   $('ul').on('click', '#button-item-x', function () {
     $(this).parents('.to-do-item').remove()
@@ -130,9 +133,7 @@ $(document).ready(function() {
     if ($('#completed-bucket').find('.to-do-item').size() == 0) {
       $('#complete-header').hide();
     }
-
-
-   })
+  })
 
 // On click, you can complete a to-do-item, move it to a complete section and
 
@@ -165,5 +166,5 @@ $(document).ready(function() {
 
 
 
-  });
+
 });
